@@ -1,0 +1,17 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
+@import url(https://fonts.googleapis.com/css?family=Syncopate);	
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
+
+.navbar {
+	border-radius: 0px;
+	background-color: #273446;
+}
+
+.snowcastTitle, li {
+	font-family: Syncopate;
+}
+
+li {
+	font-size: 0.7em;
+}
