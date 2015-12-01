@@ -6,12 +6,16 @@
 .navbar {
 	border-radius: 0px;
 	background-color: #273446;
-}
-
-.snowcastTitle, li {
 	font-family: Syncopate;
 }
 
-li {
+/*.snowcastTitle, li {
+	font-family: Syncopate;
+}*/
+
+li, .footer {
 	font-size: 0.7em;
+}
+
+body {
 }
