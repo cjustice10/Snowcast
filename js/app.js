@@ -36,9 +36,13 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap'])
 
 .controller('SnowcastCtrl', ['$scope', '$http', function($scope, $http) {
 
+	var resorts = ['49 Degrees North','Bluewood','Crystal Mountain','Loup Loup','Mission Ridge','Mount Rainier','Mt Baker','Mt Spokane','Snoqualmie','Stevens Pass','Summit Central at Snoqualmie','Summit East at Snoqualmie','Summit West at Snoqualmie','White Pass'];
+
 }])
 
 .controller('SnowportsCtrl', ['$scope', '$http', function($scope, $http) {
+
+	var resorts = ['49 Degrees North','Bluewood','Crystal Mountain','Loup Loup','Mission Ridge','Mount Rainier','Mt Baker','Mt Spokane','Snoqualmie','Stevens Pass','Summit Central at Snoqualmie','Summit East at Snoqualmie','Summit West at Snoqualmie','White Pass'];
 
 }])
 
