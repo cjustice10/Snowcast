@@ -122,10 +122,12 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap','fireba
 		// any time auth status updates, set the userId so we know
 		Auth.$onAuth(function(authData) {
 			if(authData) {
+				console.log("login sucessful");
 				$scope.userId = authData.uid;
 			}
 			else {
 				$scope.userId = undefined;
+				console.log("not logged in")
 			}
 		});
 
@@ -134,8 +136,6 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap','fireba
 		if (authData) {
 			$scope.userId = authData.uid;
 		}
-
-
 
 	}]);
 
