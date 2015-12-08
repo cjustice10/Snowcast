@@ -11,9 +11,15 @@
 			<div class="writeColumn col-md-4 col">
 				<h1>Write a Snowview</h1>
 			 	<form id="leaveReview" method="POST" action="/leaveReview">
-					<textarea type="text" name="skiResortName" id="skiResortName" placeholder="Name of Ski Resort"></textarea>
+					
+					<select name="skiResortName" id="skiResortName" class="form-control" ng-model="skiResortName" ng-options="item for item in skiResortNames" required></select>
 
-					<textarea type="text" name="description" id="description" placeholder="Description of Experience at Resort"></textarea>
+
+					<textarea type="text" name="description" id="description" placeholder="Description of Experience at Resort" ng-model="skiResortDesc"></textarea>
+
+					<button type="submit" id="submitButton" ng-click="submitFunction()">Save</button>
+
+
 				</form>
 			</div>
 			

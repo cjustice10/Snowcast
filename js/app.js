@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap'])
+angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'firebase'])
 .config(function($stateProvider){
 	$stateProvider
 		.state('home', {
@@ -47,10 +47,55 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap'])
 
 }])
 
-.controller('SnowviewsCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('SnowviewsCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', 'firebaseService', function($scope, $http, $firebaseArray, $firebaseObject, firebaseService) {
+
+	$scope.skiResortNames = ['Crystal Mountain', 'Mt. Baker', 'Stevens Pass', 'Summit Central at Snoqualmie'];
+	$scope.skiResortName = '';
+	// firebaseService.skiResortName = function(skiResortName) {
+	// 	service.resortName.push(info);
+	// }
+
+	$scope.submitFunction = function() {
+		//process the form get the data
+		var storedResortName = $scope.skiResortName;
+		var storedResortDesc = $scope.skiResortDesc;
+		//Get name of user, store it
+		firebaseService.storeReview(storedResortName, storedResortDesc);
+	}
 
 }])
 
 .controller('LoginCtrl', ['$scope', '$http', function($scope, $http) {
 
 }])
+
+.factory('firebaseService', function($firebaseArray) {
+	var service = {};
+
+	service.userInfo = {};
+
+	var ref = new Firebase("https://snowcast343d.firebaseio.com");
+	var userRef = ref.child("allUserReviews")
+	var resortNameRef = userRef.child("resortName");
+	var resortDescRef = userRef.child("resortDesc");
+
+	service.resortName = $firebaseArray(resortNameRef);
+	service.resortDesc = $firebaseArray(resortDescRef);
+
+	service.storeReview = function(storedResortName, storedResortDesc) {
+		service.resortName.$add({
+			resortName: storedResortName,
+			resortDesc: storedResortDesc,
+			// userId: $scope.newUser.firstName,
+			time: Firebase.ServerValue.TIMESTAMP
+		}).then(function(){
+			$scope.skiResortName = '';
+		})
+	}
+	return service;
+
+
+	// var Auth = $firebaseAuth(ref);
+
+
+});
