@@ -1,20 +1,70 @@
 
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
 @import url(https://fonts.googleapis.com/css?family=Syncopate);	
+@import url(https://fonts.googleapis.com/css?family=Lato);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
 
 
 .navbar {
 	border-radius: 0px;
 	background-color: #273446;
-	font-family: Syncopate;
+	font-family: Syncopate, Arial;
 }
 
-li, .footer {
+li, footer {
 	font-size: 0.7em;
 }
 
+h1 {
+	font-size: 1em;
+	color: #F79C15;
+	font-family: Syncopate, Arial;
+}
+
 body {
+	font-family: Lato, Arial;
+}
+
+/*For main page*/
+.contentBox {
+	padding-bottom: 4em;
+	color: #273446;
+}
+
+footer {
+	background-color: #273446;
+}
+/*End of main page*/
+
+
+/*For snowviews*/
+#skiResortName, #description {
+	width: 100%;
+	margin-bottom: 1em;
+}
+
+#description {
+	padding-bottom: 3em;
+}
+
+.reviews {
+	margin-bottom: 3em;
+}
+/*End of snowviews*/
+
+
+
+@media screen and (min-width: 768px) {
+	h1 {
+		font-size: 2em;
+		color: #F79C15;
+		font-family: Syncopate, Arial;
+	}
+
+	.writeColumn {
+	margin-right: 6em;
+	}
+
 }
 
 .home{
