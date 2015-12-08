@@ -20,6 +20,6 @@
     <!-- Submit buttons: should only be active if certain inputs are valid -->
     <div class="form-group">
         <button type="submit" class="btn btn-primary" ng-click="signIn()" ng-disabled="login.email.$invalid || login.password.$invalid" >Sign-in</button>
-
+        <button type="submit" class="btn btn-primary" ng-click="logOut()" >logout</button>
     </div>
 </form>

@@ -73,7 +73,6 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap','fireba
 				'email': $scope.newUser.email,
 				'password': $scope.newUser.password,
 			})
-
 				// Once the user is created, call the logIn function
 				.then($scope.signIn)
 
@@ -97,9 +96,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap','fireba
 
 		// LogIn function
 		$scope.signIn = function() {
-			var ref = new Firebase('https://snowcast343d.firebaseio.com/');
 			console.log('log in');
-			ref.authWithPassword({
+			/*ref.authWithPassword({
 				email: $scope.newUser.email,
 				password: $scope.newUser.password
 			}, function(error, authData) {
@@ -107,11 +105,15 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap','fireba
 					console.log("Login Failed!", error);
 				} else {
 					console.log("Authenticated successfully with payload:", authData);
+
 				}
-			});
+			});*/
+			return Auth.$authWithPassword({
+				email: $scope.newUser.email,
+				password: $scope.newUser.password
+			})
 
 		};
-
 		// LogOut function
 		$scope.logOut = function() {
 			Auth.$unauth();
@@ -132,6 +134,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap','fireba
 		if (authData) {
 			$scope.userId = authData.uid;
 		}
+
+
 
 	}]);
 
