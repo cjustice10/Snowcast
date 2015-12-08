@@ -1,3 +1,4 @@
+
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
 @import url(https://fonts.googleapis.com/css?family=Syncopate);	
 @import url(https://fonts.googleapis.com/css?family=Lato);
@@ -33,14 +34,10 @@ body {
 footer {
 	background-color: #273446;
 }
-
 /*End of main page*/
 
 
 /*For snowviews*/
-/*.writeColumn {
-	margin-right: 6em;
-}*/
 #skiResortName, #description {
 	width: 100%;
 	margin-bottom: 1em;
@@ -51,15 +48,8 @@ footer {
 }
 
 .reviews {
-	/*border: 1px solid black;*/
 	margin-bottom: 3em;
 }
-
-/*.searchbar {
-	position: absolute;
-	right: 0px;
-	margin-bottom: 4em;
-}*/
 /*End of snowviews*/
 
 
@@ -73,6 +63,15 @@ footer {
 
 	.writeColumn {
 	margin-right: 6em;
-}
+	}
 
 }
+
+.home{
+    font-size: 20px;
+}
+
+.highlight{
+    font-size: 20px;
+}
+

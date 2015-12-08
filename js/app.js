@@ -28,6 +28,11 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 			templateUrl: 'partials/login.html',
 			controller: 'LoginCtrl'
 		})
+		.state('signup', {
+			url: '/signup',
+			templateUrl: 'partials/signup.html',
+			controller: 'LoginCtrl'
+		})
 })
 
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
@@ -65,19 +70,22 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 }])
 
-.controller('LoginCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('LoginCtrl', ['$scope', '$http', '$firebaseAuth', '$firebaseArray', '$firebaseObject', function($scope, $http, $firebaseAuth,$firebaseArray, $firebaseObject ) {
+
 
 }])
 
+
+// WORKS STARTING HERE
 .factory('firebaseService', function($firebaseArray) {
 	var service = {};
 
 	service.userInfo = {};
 
 	var ref = new Firebase("https://snowcast343d.firebaseio.com");
-	var userRef = ref.child("allUserReviews")
-	var resortNameRef = userRef.child("resortName");
-	var resortDescRef = userRef.child("resortDesc");
+	var reviewsRef = ref.child("allUserReviews")
+	var resortNameRef = reviewsRef.child("resortName");
+	var resortDescRef = reviewsRef.child("resortDesc");
 
 	service.resortName = $firebaseArray(resortNameRef);
 	service.resortDesc = $firebaseArray(resortDescRef);
@@ -94,8 +102,5 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	}
 	return service;
 
-
-	// var Auth = $firebaseAuth(ref);
-
-
 });
+
