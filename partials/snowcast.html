@@ -1,0 +1,65 @@
+<h1>SnowCast</h1>
+
+<div class="container">
+	<div class="form-inline pull-right">
+	<p>Where do you prefer to enjoy your snow?</p>
+	<select name="skiResortName" id="skiResortName" class="form-control" ng-model="skiResortName" ng-options="item for item in skiResortNames" required></select>
+</div>
+
+<h1 id="favoriteResortTitle">{{skiResortName}}</h1>
+
+<div class="resortForecast">
+	<h2>Resort Forecast</h2>
+	<table class="table" id="roadConditions"> <!--filter by selected/favorite resort-->
+		<tr>
+			<th>Name</th>
+			<th>Report Time</th>
+			<th>Today's Temperature</th>
+			<th>Tomorrow's Temperature</th>
+		</tr>
+		<tr ng-repeat="resort in snowfall | filter:skiResortName">
+			<td>{{resort.resortName}}</td>
+			<td>{{resort.reportDateTime}}</td>
+			<td>High: {{resort.weatherToday_Temperature_High}} Low: {{resort.weatherToday_Temperature_Low}}</td>
+			<td>High: {{resort.weatherTomorrow_Temperature_High}} Low: {{resort.weatherTomorrow_Temperature_Low}}
+		</tr>
+	</table>
+</div>
+
+<div class="resortReport">
+	<h2>Resort Report</h2>
+	<table class="table" id="roadConditions">
+		<tr>
+			<th>Name</th>
+			<th>24 Hour Snowfall</th>
+			<th>Weather Conditions</th>
+		</tr>
+		<tr ng-repeat="resort in snowfall | filter:skiResortName">
+			<td>{{resort.resortName}}</td>
+			<td>{{resort.lastSnowFallAmount}}</td>
+			<td>{{resort.weatherToday_Condition}}</td>
+		</tr>
+	</table>
+</div>
+
+<div class="roadConditions">
+	<h2>Road Conditions</h2>
+	<table class="table" id="roadConditions">
+		<tr>
+			<th>Name</th>
+			<th>Elevation</th>
+			<th>Restrictions 1</th>
+			<th>Restrictions 2</th>
+			<th>Temperature</th>
+			<th>Road Conditions</th>
+		</tr>
+		<tr ng-repeat="road in roadConditions | filter:skiResortName">
+			<td>{{road.MountainPassName}}</td>
+			<td>{{road.ElevationInFeet}}</td>
+			<td>{{road.RestrictionOne.TravelDirection}}: {{road.RestrictionOne.RestrictionText}}</td>
+			<td>{{road.RestrictionOne.RestrictionText}}: {{road.RestrictionTwo.RestrictionText}}</td>
+			<td>{{road.TemperatureInFahrenheit}}</td>
+			<td>{{road.WeatherCondition}}</td>
+		</tr>
+	</table>
+</div>
