@@ -7,38 +7,13 @@
 	<title>Snowcast</title>
 
 	<link rel="stylesheet" href="css/main.css"> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
-	<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
-	<script src="lib/angular-csv-import.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
 </head>
 
 <body ng-controller="SnowcastCtrl">
-
-<main>
-	<div ui-view></div>
-</main>
-
-<footer>
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12 col-md-3">
-			<p>&copy; 2015 Dawg Coffee</p>
-		</div>
-		<div class="col-xs-12 col-md-9" id="icons">
-			<p>Information about coffee growers from <a href="https://www.sweetmarias.com/">Sweet Maria's.</a></p>
-			<p>Icons by
-	 			<a href="http://www.freepik.com" title="Freepik">Freepik</a>,
-				<a href="http://www.bogdanrosu.com" title="Bogdan Rosu">Bogdan Rosu</a>
-			    from
-			   	<a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>
-			    is licensed under
-			    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
-			</p>
-		</div>
-	</div>
-</div>
-</footer>
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <!-- Firebase -->
@@ -55,6 +30,66 @@
 <script src="lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-sanitize.js"></script>
+
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+      	<!-- Hamburger icon when collapsed into mobile -->
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#"><i class="fa fa-cloud"></i> Snowcast</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a ui-sref="snowcast">Snowcast</a></li>
+        <li><a ui-sref="snowports">Snowports</a></li>
+        <li><a ui-sref="snowviews">Snowviews</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a ui-sref="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a ui-sref="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+
+<div class="contentBox container-fluid">
+		<div ui-view></div>
+
+	</div>
+
+
+</div>
+
+
+  <div class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+      <p class="footer navbar-text pull-left">
+      	Footer
+      </p>
+      
+    </div>
+    
+    
+  </div>
+
+<!--   <footer>
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+  </footer> -->
+
+<!--     <footer>
+      <div class="footer container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+  </footer> -->
 
 <!-- load our script -->
 <script src="js/app.js"></script>

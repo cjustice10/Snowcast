@@ -19,7 +19,7 @@
 		</tr>
 		<tr ng-repeat="resort in snowfall | filter:skiResortName">
 			<td>{{resort.resortName}}</td>
-			<td>{{resort.reportDateTime}}</td>
+			<td>{{resort.reportDateTime | date: 'longDate'}}</td>
 			<td>High: {{resort.weatherToday_Temperature_High}} Low: {{resort.weatherToday_Temperature_Low}}</td>
 			<td>High: {{resort.weatherTomorrow_Temperature_High}} Low: {{resort.weatherTomorrow_Temperature_Low}}
 		</tr>
