@@ -10,33 +10,41 @@
 		<div class="row">
 			<div class="writeColumn col-md-4 col">
 				<h1>Write a Snowview</h1>
-			 	<form id="leaveReview" method="POST" action="/leaveReview">
-					<!-- <div ng-raty="ratyOptions" ng-model="rating"></div> -->
 
+			 	<form id="leaveReview" name="leaveReview" method="POST" action="/leaveReview">
 					<div ng-raty="ratyOptions" ng-model="rating"></div>
-
+					<label for="ratingDrop">Rating:</label>
 					<select name="ratingDrop" id="ratingDrop" class="form-control" ng-model="ratingDrop" ng-options="item for item in ratingDrops" required></select>
 
+					<label for="skiResortName">Ski Resort:</label>
 					<select name="skiResortName" id="skiResortName" class="form-control" ng-model="skiResortName" ng-options="item for item in skiResortNames" required></select>
 
+					<textarea type="text" name="description" id="description" placeholder="Description of Experience at Resort" ng-model="skiResortDesc" required></textarea>
 
-					<textarea type="text" name="description" id="description" placeholder="Description of Experience at Resort" ng-model="skiResortDesc"></textarea>
-
-					<button type="submit" id="submitButton" ng-click="submitFunction()" eat-click>Save</button>
-
-
+					<button type="submit" id="submitButton" class="btn btn-primary" ng-click="submitFunction(leaveReview)" ng-disabled="leaveReview.$invalid" eat-click>Submit Review</button>
 				</form>
 			</div>
 			
 			<div class="reviews col-md-6 col">
 				<h1>Snowviews</h1>
-				<div class="searchbar">
-					<input name="search" placeholder="Search for Resort" ng-model="query" ng-change="searchCoffee()" ng-model-options="{debounce:1000}"></input>
+				<div class="reviews" ng-repeat="review in userReviews">
+					
+						<p>Yes ? {{review.rating}}</p>
+					
 				</div>
-				<div class="reviews" ng-repeat="review in storedResortName">
-					
-						{{review.resortDesc}}
-					
+				<div class="searchbar">
+					<!-- Need to mess with search -->
+					<!-- <input name="search" placeholder="Search for Resort" ng-model="query" ng-change="searchCoffee()" ng-model-options="{debounce:1000}"></input> -->
+
+					<!-- <select name="skiResortName" id="skiResortName" class="form-control" ng-model="favResortName" ng-options="item for item in skiResortNames" ng-change='updateFavResort(favResortName);' required></select> -->
+				</div>
+				
+			</div>
+
+			<div class="reviewsSide col-md-6 col">
+				<h1>Snowviews</h1>
+				<div ng-repeat="review in userReviews">
+					Display this stuff {{reviews.name}}
 				</div>
 			</div>
 		</div>

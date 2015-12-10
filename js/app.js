@@ -126,13 +126,15 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 }])
 
 .controller('SnowviewsCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', 'firebaseService', function($scope, $http, $firebaseArray, $firebaseObject, firebaseService) {
-
+	//Array for rating dropdown
 	$scope.ratingDrops = ['1', '2', '3', '4', '5'];
 	$scope.ratingDrop = '';
+	//Array for ski resort
 	$scope.skiResortNames = ['Crystal Mountain', 'Mt. Baker', 'Stevens Pass'];
 	$scope.skiResortName = '';
 
-
+	//Submit the form
+	//Calls storeReview function in .factory and passes in stored review info
 	$scope.submitFunction = function() {
 
 		//process the form get the data
@@ -141,16 +143,30 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 		var storedResortDesc = $scope.skiResortDesc;
 		//Get name of user, store it
 		firebaseService.storeReview(storedRating, storedResortName, storedResortDesc);
+		$scope.reset();
 
 	}
 
-	//$scope.rating = 3;
+	//Resets the form by clearing 
+	$scope.reset = function() {
+        $scope.skiResortName = '';
+        $scope.ratingDrop = '';
+        $scope.skiResortDesc = '';
+    };
+
+    //Reloads the page / resets the form
+	// $scope.reset = function() {
+
+ //        location.reload();
+ //    };
+
+	$scope.userReviews = firebaseService.resortNames;
 
 }])
 
+//Prevents getting the not found page upon clicking submit button
 .directive('eatClick', function() {
     return function(scope, element, attrs) {
-        //angular.element('#submitButton').bind('click', function(event) {
         $('#submitButton').click(function(event) {
             event.preventDefault();
         });
@@ -194,17 +210,21 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 
 
-// WORKS STARTING HERE
-
+//Factory; allows for sharing between two controllers
 .factory('firebaseService', function($firebaseArray, $firebaseObject, $firebaseAuth) {
 	var service = {};
 
 	service.userInfo = {};
 
 	var ref = new Firebase("https://snowcast343d.firebaseio.com");
-	var reviewsRef = ref.child("allUserReviews");
-	var resortNameRef = reviewsRef.child("resortName");
-	var resortDescRef = reviewsRef.child("resortDesc");
+
+	// var reviewsRef = ref.child("allUserReviews");
+	//IFFY
+	//earlier: var resortNameRef = reviewsRef = ref.child("reviews");
+	//Define references in Firebase
+	var resortNameRef = ref.child("resortName");
+	var resortDescRef = ref.child("resortDesc");
+
 	//user reference firebase
 	var usersRef = ref.child('users');
 	var loggedIn;
@@ -215,15 +235,16 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	//adding authentication
 	var Auth = $firebaseAuth(ref);
 
+	//firebaseArray for references
 	service.resortName = $firebaseArray(resortNameRef);
-	service.resortDesc = $firebaseArray(resortDescRef);
+	service.resortDesc = $firebaseObject(resortDescRef);
 
+	//Actually save review
 	service.storeReview = function(storedRating, storedResortName, storedResortDesc) {
 		service.resortName.$add({
 			rating: storedRating,
 			resortName: storedResortName,
 			resortDesc: storedResortDesc,
-			// userId: $scope.newUser.firstName,
 			time: Firebase.ServerValue.TIMESTAMP
 		}).then(function(){
 			storedResortName = '';
