@@ -1,12 +1,4 @@
-<!-- Display all bean types -->
-
-	<div class="container-fluid">
-		
-			<!-- <p class="hidden-xs">Caffeinating Sleepy Huskies Since 2015</p> -->
-	</div>
-	
-
-	<div class="container" ng-controller="SnowviewsCtrl">
+<div class="container">
 		<div class="row">
 			<div class="writeColumn col-md-4 col">
 				<h1>Write a Snowview</h1>
@@ -27,40 +19,34 @@
 			
 			<div class="reviews col-md-6 col">
 				<h1>Snowviews</h1>
-				<div class="reviews" ng-repeat="review in userReviews">
-					
-						<p>Yes ? {{review.rating}}</p>
-					
-				</div>
+
 				<div class="searchbar">
 					<!-- Need to mess with search -->
-					<input name="search" id="searchResort" placeholder="Search for Resort" ng-model="query" ng-change="searchCoffee()" ng-model-options="{debounce:1000}"></input>
+					<!-- <input name="search" id="searchResort" placeholder="Search for Resort" ng-model="query" ng-change="searchCoffee()" ng-model-options="{debounce:1000}"></input> -->
 
 					<!-- <select name="skiResortName" id="skiResortName" class="form-control" ng-model="searchResort" ng-options="item for item in skiResortNames" ng-change='updateFavResort(favResortName);' required></select> -->
 				</div>
+
+				<div class="reviews">
+
+
+						<table class="table">
+						        <tr>
+						            <th>Resort Name</th>
+						            <th>Rating</th>
+						            <th>Resort Description</th>
+						        </tr>
+						        <tr ng-repeat="review in userReviews">
+						            <td>{{review.resortName}}</td>
+						            <td>{{review.rating}}</td>
+						            <td>{{review.resortDesc}}</td>
+						        </tr>
+						    </table>
+					
+				</div>
 				
 			</div>
 
-			<div class="reviewsSide col-md-6 col">
-				
-				<div>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				</div>
-				<div ng-repeat="review in userReviews">
-					Display this stuff {{reviews.name}}
-				</div>
-			</div>
 		</div>
 	</div>
 
