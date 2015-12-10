@@ -129,23 +129,39 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 .controller('SnowviewsCtrl', ['$scope', '$http', '$firebaseArray', '$firebaseObject', 'firebaseService', function($scope, $http, $firebaseArray, $firebaseObject, firebaseService) {
 
-	$scope.skiResortNames = ['Crystal Mountain', 'Mt. Baker', 'Stevens Pass', 'Summit Central at Snoqualmie'];
+	$scope.ratingDrops = ['1', '2', '3', '4', '5'];
+	$scope.ratingDrop = '';
+	$scope.skiResortNames = ['Crystal Mountain', 'Mt. Baker', 'Stevens Pass'];
 	$scope.skiResortName = '';
-	// firebaseService.skiResortName = function(skiResortName) {
-	// 	service.resortName.push(info);
-	// }
+
 
 	$scope.submitFunction = function() {
+
 		//process the form get the data
+		var storedRating = $scope.ratingDrop;
 		var storedResortName = $scope.skiResortName;
 		var storedResortDesc = $scope.skiResortDesc;
 		//Get name of user, store it
-		firebaseService.storeReview(storedResortName, storedResortDesc);
+		firebaseService.storeReview(storedRating, storedResortName, storedResortDesc);
+
 	}
+
+	//$scope.rating = 3;
 
 }])
 
-.controller('LoginCtrl', ['$scope', '$http', 'firebaseService', function($scope, $http, firebaseService  ) {
+.directive('eatClick', function() {
+    return function(scope, element, attrs) {
+        //angular.element('#submitButton').bind('click', function(event) {
+        $('#submitButton').click(function(event) {
+            event.preventDefault();
+        });
+    }
+})
+
+
+
+.controller('LoginCtrl', ['$scope', '$http', '$firebaseAuth', '$firebaseArray', '$firebaseObject', function($scope, $http, $firebaseAuth,$firebaseArray, $firebaseObject ) {
 
 		$scope.loggedIn = false;
 
@@ -181,6 +197,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 
 // WORKS STARTING HERE
+
 .factory('firebaseService', function($firebaseArray, $firebaseObject, $firebaseAuth) {
 	var service = {};
 
@@ -203,15 +220,15 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	service.resortName = $firebaseArray(resortNameRef);
 	service.resortDesc = $firebaseArray(resortDescRef);
 
-	//Stores a review, the resort the review is for and a timestamp
-	service.storeReview = function(storedResortName, storedResortDesc) {
+	service.storeReview = function(storedRating, storedResortName, storedResortDesc) {
 		service.resortName.$add({
+			rating: storedRating,
 			resortName: storedResortName,
 			resortDesc: storedResortDesc,
 			// userId: $scope.newUser.firstName,
 			time: Firebase.ServerValue.TIMESTAMP
 		}).then(function(){
-			$scope.skiResortName = '';
+			storedResortName = '';
 		})
 	}
 
