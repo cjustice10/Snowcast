@@ -1,15 +1,44 @@
 
-<h2>Snowports</h2>
+<div class="container">
+    <h1>Snowports</h1>
 
-<table class="table">
-    <tr>
-        <th>Resort Name</th>
-        <th>Temperature (High)</th>
-        <th>Snow Depth</th>
-    </tr>
-    <tr ng-repeat="resort in resortArray">
-        <td>{{resort.resortName}}</td>
-        <td>{{resort.weatherToday_Temperature_High}}</td>
-        <td>{{resort.avgBaseDepthMax}}</td>
-    </tr>
-</table>
+    <h2>Snow Information</h2>
+    <table class="table">
+        <tr>
+            <th>Resort Name</th>
+            <th>Current Temp (F)</th>
+            <th>Snow Condition</th>
+            <th>Snow Depth (In)</th>
+            <th>Last Snow Recieved On</th>
+            <th>Last Snow Amount (In)</th>
+        </tr>
+        <tr ng-repeat="resort in resortArray">
+            <td>{{resort.resortName !== '' ? resort.resortName : 'N/A'}}</td>
+            <td>{{resort.forecastBaseTemp !== '' ? resort.forecastBaseTemp : 'N/A'}}</td>
+            <td>{{resort.primarySurfaceCondition !== '' ? resort.primarySurfaceCondition : 'N/A'}}</td>
+            <td>{{resort.avgBaseDepthMax !== '' ? resort.avgBaseDepthMax : 0}}</td>
+            <td>{{resort.lastSnowFallDate !== '' ? resort.lastSnowFallDate : 'N/A'}}</td>
+            <td>{{resort.lastSnowFallAmount !== '' ? resort.lastSnowFallAmount : 0}}</td>
+        </tr>
+    </table>
+    <!-- {{movie.Poster !== 'N/A' ? movie.Poster : 'img/nofilm.png'}} -->
+
+    <h2>Ski Run Information</h2>
+    <table class="table">
+        <tr>
+            <th>Resort Name</th>
+            <th>Total Number of Runs</th>
+            <th>Number of Open Runs</th>
+            <th>Resort Hours</th>
+        </tr>
+
+        <tr ng-repeat="resort in resortArray">
+            <td>{{resort.resortName !== '' ? resort.resortName : 'N/A'}}</td>
+            <td>{{resort.maxOpenDownHillTrails !== '' ? resort.maxOpenDownHillTrails : 'N/A'}}</td>
+            <td>{{resort.openDownHillTrails !== '' ? resort.openDownHillTrails : 0}}</td>
+            <td>{{resort.weekdayHours !== '' ? resort.weekdayHours : 'Closed'}} {{resort.weekendHours}}</td>
+        </tr>
+
+    </table>
+
+</div>
