@@ -40,8 +40,61 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 }])
 
 .controller('SnowcastCtrl', ['$scope', '$http', function($scope, $http) {
+	//List of names of supported ski resorts for dropdown select element id="skiResortName"
+	$scope.skiResortNames = ['Crystal Mountain', 'Mt Baker', 'Stevens Pass'];
 
-	$scope.resorts = ['49 Degrees North','Bluewood','Crystal Mountain','Loup Loup','Mission Ridge','Mount Rainier','Mt Baker','Mt Spokane','Snoqualmie','Stevens Pass','Summit Central at Snoqualmie','Summit East at Snoqualmie','Summit West at Snoqualmie','White Pass'];
+	//When a supported resort is selected, save the user's resort preference to firebase 
+	$scope.favResortName;
+	var updateFavResort = function(favResortName) {
+		firebaseService.storeFavResort(favResortName);
+	}
+
+	//Variables to access forecast and current weather data using Yahoo proxy for JSONP request
+	$scope.snowfall;
+	$scope.snowfallUrl = "http://feeds.snocountry.net/conditions.php?apiKey=SnoCountry.example&ids=206002,206003,206004&output=json";
+	$scope.yql_url = 'https://query.yahooapis.com/v1/public/yql';
+
+	//jQuery AJAX get request using Yahoo Proxy for forecast and current weather data
+	$.ajax({
+	  'url': $scope.yql_url,
+	  'data': {
+	    'q': 'SELECT * FROM json WHERE url="'+$scope.snowfallUrl+'"',
+	    'format': 'json',
+	    'jsonCompat': 'new',
+	  },
+	  'dataType': 'jsonp',
+	  'success': function(response) {
+	    console.log(response);
+	    console.log(response.query.results.json.items);
+	    $scope.$apply(function() {
+	    	$scope.snowfall=response.query.results.json.items;
+	    	//Rename ski resorts for uniformity of data
+	    	$scope.snowfall[0].resortName = "Crystal Mountain";
+	    	$scope.snowfall[1].resortName = "Mt Baker";
+	    	$scope.snowfall[2].resortName = "Stevens Pass";
+	    })
+	  },
+	});
+
+	//Variables to store and access data for road conditions from WSDOT
+	$scope.roadData;
+	$scope.roadConditions;
+	$scope.roadQueryURL = "http://wsdot.com/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionsAsJson?AccessCode=e7801fc3-06e0-485f-ac8a-da32b368e6d5&callback=JSON_CALLBACK";
+
+	//AngualarJS JSONP GET request for road conditions from WSDOT
+	$http.jsonp($scope.roadQueryURL)
+	.then(function successCallback(response) {
+    	$scope.roadData = response.data;
+    	console.log($scope.roadData);
+    	$scope.roadConditions = [$scope.roadData[3], $scope.roadData[7], $scope.roadData[11]];
+    	//Rename pass names to ski resort names for uniformity of data
+    	$scope.roadConditions[0].MountainPassName = "Crystal Mountain";
+    	$scope.roadConditions[1].MountainPassName = "Mt Baker";
+    	$scope.roadConditions[2].MountainPassName = "Stevens Pass";
+  	}, function errorCallback(response) {
+    	console.log("Error!");
+       	console.log(response.data);
+  	});
 
 }])
 
@@ -128,6 +181,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	service.resortName = $firebaseArray(resortNameRef);
 	service.resortDesc = $firebaseArray(resortDescRef);
 
+	//Stores a review, the resort the review is for and a timestamp
 	service.storeReview = function(storedResortName, storedResortDesc) {
 		service.resortName.$add({
 			resortName: storedResortName,
@@ -214,8 +268,19 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	}else{
 		service.loggedIn = false;
 	}
-	return service;
 
+	//Adds the favorite ski resort of a user based on their selection in the Snowcast page
+	service.storeFavResort = function(resort) {
+		service.favResort.$add({
+			favResort: resort
+		}).then(function() {
+			$scope.favResort = resort;
+			console.log('Favorite Resort Saved: ' + resort);
+		})
+	}
+
+
+		return service;
 });
 
 
