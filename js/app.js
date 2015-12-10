@@ -160,7 +160,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
  //        location.reload();
  //    };
 
-	$scope.userReviews = firebaseService.resortNames;
+	$scope.userReviews = firebaseService.resortName;
+	console.log($scope.userReviews);
 
 	$scope.searchResort;
 
