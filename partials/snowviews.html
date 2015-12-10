@@ -6,81 +6,62 @@
 	</div>
 	
 
-	<div class="container">
+	<div class="container" ng-controller="SnowviewsCtrl">
 		<div class="row">
 			<div class="writeColumn col-md-4 col">
 				<h1>Write a Snowview</h1>
-			 	<form id="leaveReview" method="POST" action="/leaveReview">
-					
+
+			 	<form id="leaveReview" name="leaveReview" method="POST" action="/leaveReview">
+					<div ng-raty="ratyOptions" ng-model="rating"></div>
+					<label for="ratingDrop">Rating:</label>
+					<select name="ratingDrop" id="ratingDrop" class="form-control" ng-model="ratingDrop" ng-options="item for item in ratingDrops" required></select>
+
+					<label for="skiResortName">Ski Resort:</label>
 					<select name="skiResortName" id="skiResortName" class="form-control" ng-model="skiResortName" ng-options="item for item in skiResortNames" required></select>
 
+					<textarea type="text" name="description" id="description" placeholder="Description of Experience at Resort" ng-model="skiResortDesc" required></textarea>
 
-					<textarea type="text" name="description" id="description" placeholder="Description of Experience at Resort" ng-model="skiResortDesc"></textarea>
-
-					<button type="submit" id="submitButton" ng-click="submitFunction()">Save</button>
-
-
+					<button type="submit" id="submitButton" class="btn btn-primary" ng-click="submitFunction(leaveReview)" ng-disabled="leaveReview.$invalid" eat-click>Submit Review</button>
 				</form>
 			</div>
 			
 			<div class="reviews col-md-6 col">
 				<h1>Snowviews</h1>
-				<div class="searchbar">
-					<input name="search" placeholder="Search for Resort" ng-model="query" ng-change="searchCoffee()" ng-model-options="{debounce:1000}"></input>
+				<div class="reviews" ng-repeat="review in userReviews">
+					
+						<p>Yes ? {{review.rating}}</p>
+					
 				</div>
+				<div class="searchbar">
+					<!-- Need to mess with search -->
+					<input name="search" id="searchResort" placeholder="Search for Resort" ng-model="query" ng-change="searchCoffee()" ng-model-options="{debounce:1000}"></input>
+
+					<!-- <select name="skiResortName" id="skiResortName" class="form-control" ng-model="searchResort" ng-options="item for item in skiResortNames" ng-change='updateFavResort(favResortName);' required></select> -->
+				</div>
+				
+			</div>
+
+			<div class="reviewsSide col-md-6 col">
+				
 				<div>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				</>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				</div>
+				<div ng-repeat="review in userReviews">
+					Display this stuff {{reviews.name}}
+				</div>
 			</div>
 		</div>
 	</div>
 
-
-
-<!-- 	<div class="container">
-		<div class="row">
-			<div class="col-md-5 col">
-				<h1>Write a Snowview</h1>
-		 		<form id="leaveReview" method="POST" action="/leaveReview">
-					<textarea type="text" name="skiResortName" id="skiResortName" placeholder="Name of Ski Resort"></textarea>
-
-					<textarea type="text" name="description" id="description" placeholder="Description of Experience at Resort"></textarea>
-				</form>
-				</div>
-			</form>
-		</div>
-	</div>
-
-     <div class="container col-md-3 col">
-     sldkfj
-     </div> -->
 

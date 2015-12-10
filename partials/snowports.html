@@ -5,14 +5,14 @@
     <h2>Snow Information</h2>
     <table class="table">
         <tr>
-            <th>Resort Name</th>
+            <th><a href="" ng-click="sorter='resortName'">Resort Name</a></th>
             <th>Current Temp (F)</th>
             <th>Snow Condition</th>
-            <th>Snow Depth (In)</th>
+            <th><a href="" ng-click="sorter='avgBaseDepthMax'">Snow Depth (In)</a></th>
             <th>Last Snow Recieved On</th>
             <th>Last Snow Amount (In)</th>
         </tr>
-        <tr ng-repeat="resort in resortArray">
+        <tr ng-repeat="resort in resortArray | orderBy:sorter">
             <td>{{resort.resortName !== '' ? resort.resortName : 'N/A'}}</td>
             <td>{{resort.forecastBaseTemp !== '' ? resort.forecastBaseTemp : 'N/A'}}</td>
             <td>{{resort.primarySurfaceCondition !== '' ? resort.primarySurfaceCondition : 'N/A'}}</td>
@@ -26,13 +26,13 @@
     <h2>Ski Run Information</h2>
     <table class="table">
         <tr>
-            <th>Resort Name</th>
-            <th>Total Number of Runs</th>
-            <th>Number of Open Runs</th>
+            <th><a href="" ng-click="sorter2='resortName'">Resort Name</a></th>
+            <th><a href="" ng-click="sorter2='maxOpenDownHillTrails'">Total Number of Runs</th>
+            <th><a href="" ng-click="sorter2='openDownHillTrails'">Number of Open Runs</a></th>
             <th>Resort Hours</th>
         </tr>
 
-        <tr ng-repeat="resort in resortArray">
+        <tr ng-repeat="resort in resortArray | orderBy:sorter2">
             <td>{{resort.resortName !== '' ? resort.resortName : 'N/A'}}</td>
             <td>{{resort.maxOpenDownHillTrails !== '' ? resort.maxOpenDownHillTrails : 'N/A'}}</td>
             <td>{{resort.openDownHillTrails !== '' ? resort.openDownHillTrails : 0}}</td>
