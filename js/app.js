@@ -36,14 +36,32 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap'])
 
 .controller('SnowcastCtrl', ['$scope', '$http', function($scope, $http) {
 
-	$scope.resorts = ['49 Degrees North','Bluewood','Crystal Mountain','Loup Loup','Mission Ridge','Mount Rainier','Mt Baker','Mt Spokane','Snoqualmie','Stevens Pass','Summit Central at Snoqualmie','Summit East at Snoqualmie','Summit West at Snoqualmie','White Pass'];
 
 }])
 
 .controller('SnowportsCtrl', ['$scope', '$http', function($scope, $http) {
 
-	$scope.resorts = ['49 Degrees North','Bluewood','Crystal Mountain','Loup Loup','Mission Ridge','Mount Rainier','Mt Baker','Mt Spokane','Snoqualmie','Stevens Pass','Summit Central at Snoqualmie','Summit East at Snoqualmie','Summit West at Snoqualmie','White Pass'];
+	var snowfallUrl = "http://feeds.snocountry.net/conditions.php?apiKey=SnoCountry.example&states=wa&resortType=Alpine&output=json";
+	var yql_url = 'https://query.yahooapis.com/v1/public/yql';
+	$scope.resortArray = [];
 
+    $.ajax({
+      'url': yql_url,
+      'data': {
+        'q': 'SELECT * FROM json WHERE url="'+snowfallUrl+'"',
+        'format': 'json',
+        'jsonCompat': 'new',
+      },
+      'dataType': 'jsonp',
+      'success': function(response) {
+        $scope.json = response.query.results.json.items;
+      }     
+    }).then(function() {
+    	$scope.$apply(function() {
+    		$scope.resortArray = $scope.json;
+    	})
+    	console.log($scope.resortArray);
+    });
 
 }])
 

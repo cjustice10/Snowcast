@@ -1,0 +1,15 @@
+
+<h2>Snowports</h2>
+
+<table class="table">
+    <tr>
+        <th>Resort Name</th>
+        <th>Temperature (High)</th>
+        <th>Snow Depth</th>
+    </tr>
+    <tr ng-repeat="resort in resortArray">
+        <td>{{resort.resortName}}</td>
+        <td>{{resort.weatherToday_Temperature_High}}</td>
+        <td>{{resort.avgBaseDepthMax}}</td>
+    </tr>
+</table>

@@ -11,11 +11,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-</head>
-
-<body ng-controller="SnowcastCtrl">
-
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <!-- Firebase -->
 <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
 
@@ -27,10 +23,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
 
-<script src="lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
-
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-sanitize.js"></script>
 
+<!-- load our script -->
+<script src="js/app.js"></script>
+
+</head>
+
+<body ng-controller="SnowcastCtrl">
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -61,8 +61,6 @@
 
 <div class="container-fluid">
 		<div ui-view></div>
-	</div>
-
 
 </div>
 
@@ -78,6 +76,5 @@
     
   </div>
 
-<!-- load our script -->
-<script src="js/app.js"></script>
+
 </body>
