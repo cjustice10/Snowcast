@@ -35,7 +35,9 @@ footer {
 	background-color: #273446;
 }
 /*End of main page*/
-
+#CrystalMtnPic{
+	margin-top: 50px;
+}
 
 /*For snowviews*/
 #skiResortName, #ratingDrop, #description {

@@ -5,14 +5,14 @@
         <label for="firstName">First Name:</label>
         <input id="firstName" name="firstName" class="form-control" ng-model="newUser.firstName" ng-minlength="3" required>
         <!-- Add an error message if the length is too short -->
-        <p class="help-block" ng-if="signup.handle.$error.minlength">Too short!</p>
+        <p class="help-block" ng-if="signup.firstName.$error.minlength">Too short, must be at least 3 characters!</p>
     </div>
 
     <div class="form-group">
         <label for="lastName">Last Name:</label>
         <input id="lastName" name="lastName" class="form-control" ng-model="newUser.lastName" ng-minlength="3" required>
         <!-- Add an error message if the length is too short -->
-        <p class="help-block" ng-if="signup.handle.$error.minlength">Too short!</p>
+        <p class="help-block" ng-if="signup.lastName.$error.minlength">Too short, must be at least 3 characters!</p>
     </div>
 
 
@@ -34,6 +34,8 @@
 
     <!-- Submit buttons: should only be active if certain inputs are valid -->
     <div class="form-group">
-        <button type="submit" class="btn btn-primary" ng-click="signUp()" ng-disabled="signup.$invalid" >Sign-up</button>
+        <button type="submit" class="btn btn-primary" ng-click="signUp()" ng-disabled="signup.$invalid || newUser.loggedIn" >Sign-up</button>
+        <p ng-show="signup.loggedIn" class="help-block" id="alreadyLoggedIn"> You are already logged in, Log out first!</p>
     </div>
+
 </form>
