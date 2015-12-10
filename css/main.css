@@ -76,13 +76,10 @@ footer {
 	margin-right: 6em;
 	}
 
+	.signupForm, .loginForm {
+	width: 44%;
 }
 
-/*.home{
-    font-size: 20px;
 }
 
-.highlight{
-    font-size: 20px;
-}*/
 
