@@ -6,34 +6,32 @@
         <input id="firstName" name="firstName" class="form-control" ng-model="newUser.firstName" ng-minlength="3" required>
         <!-- Add an error message if the length is too short -->
         <p class="help-block" ng-if="signup.firstName.$error.minlength">Too short, must be at least 3 characters!</p>
-    </div>
-
-    <div class="form-group">
+    
         <label for="lastName">Last Name:</label>
         <input id="lastName" name="lastName" class="form-control" ng-model="newUser.lastName" ng-minlength="3" required>
         <!-- Add an error message if the length is too short -->
         <p class="help-block" ng-if="signup.lastName.$error.minlength">Too short, must be at least 3 characters!</p>
-    </div>
+   
 
 
     <!-- Bind model "email" to this input and make it required -->
-    <div class="form-group">
+
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" class="form-control" ng-model="newUser.email"></input>
         <!-- Show an error message if the email is not valid -->
         <p class="help-block" ng-if="signup.email.$error.email">Not an email!</p>
-    </div>
+
 
     <!-- Password -->
-    <div class="form-group">
+
         <label for="password">Password:</label>
         <input id="password" name="password" type="password" class="form-control" ng-model="newUser.password" required></input>
         <p ng-show="signup.password.$invalid && signup.password.$touched" class="help-block" id="noPasswordError">Please enter a password</p>
-    </div>
+
     </div>
 
     <!-- Submit buttons: should only be active if certain inputs are valid -->
-    <div class="form-group">
+
         <button type="submit" class="btn btn-primary" ng-click="signUp()" ng-disabled="signup.$invalid || newUser.loggedIn" >Sign-up</button>
         <p ng-show="signup.loggedIn" class="help-block" id="alreadyLoggedIn"> You are already logged in, Log out first!</p>
     </div>

@@ -104,8 +104,6 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	var snowfallUrl = "http://feeds.snocountry.net/conditions.php?apiKey=SnoCountry.example&states=wa&resortType=Alpine&output=json";
 	var yql_url = 'https://query.yahooapis.com/v1/public/yql';
 	$scope.resortArray = [];
-	$scope.sorter = '';
-	$scope.sorter2 = '';
 
     $.ajax({
       'url': yql_url,
@@ -164,6 +162,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 	$scope.userReviews = firebaseService.resortNames;
 
+	$scope.searchResort;
+
 }])
 
 //Prevents getting the not found page upon clicking submit button
@@ -175,9 +175,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
     }
 })
 
-
-
-.controller('LoginCtrl', ['$scope', '$http', '$firebaseAuth', '$firebaseArray', '$firebaseObject', function($scope, $http, $firebaseAuth,$firebaseArray, $firebaseObject ) {
+.controller('LoginCtrl', ['$scope', '$http', 'firebaseService', function($scope, $http, firebaseService  ) {
 
 		$scope.loggedIn = false;
 
@@ -212,18 +210,13 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 
 
-//Factory; allows for sharing between two controllers
 .factory('firebaseService', function($firebaseArray, $firebaseObject, $firebaseAuth) {
 	var service = {};
 
 	service.userInfo = {};
 
 	var ref = new Firebase("https://snowcast343d.firebaseio.com");
-
-	// var reviewsRef = ref.child("allUserReviews");
-	//IFFY
-	//earlier: var resortNameRef = reviewsRef = ref.child("reviews");
-	//Define references in Firebase
+	
 	var resortNameRef = ref.child("resortName");
 	var resortDescRef = ref.child("resortDesc");
 

@@ -11,7 +11,7 @@
 	font-family: Syncopate, Arial;
 }
 
-li, footer {
+li, .footerText {
 	font-size: 0.7em;
 }
 
@@ -35,8 +35,13 @@ footer {
 	background-color: #273446;
 }
 /*End of main page*/
+
 #CrystalMtnPic{
 	margin-top: 50px;
+}
+
+#crystalPic {
+	width: 90%;
 }
 
 /*For snowviews*/
@@ -51,6 +56,10 @@ footer {
 
 .reviewsSide {
 	margin-bottom: 3em;
+}
+
+#searchResort {
+	margin-bottom: 1em;
 }
 /*End of snowviews*/
 
@@ -69,11 +78,11 @@ footer {
 
 }
 
-.home{
+/*.home{
     font-size: 20px;
 }
 
 .highlight{
     font-size: 20px;
-}
+}*/
 
