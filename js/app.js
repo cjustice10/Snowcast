@@ -64,8 +64,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	  },
 	  'dataType': 'jsonp',
 	  'success': function(response) {
-	    console.log(response);
-	    console.log(response.query.results.json.items);
+	    //console.log(response);
+	    //console.log(response.query.results.json.items);
 	    $scope.$apply(function() {
 	    	$scope.snowfall=response.query.results.json.items;
 	    	//Rename ski resorts for uniformity of data
@@ -85,7 +85,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	$http.jsonp($scope.roadQueryURL)
 	.then(function successCallback(response) {
     	$scope.roadData = response.data;
-    	console.log($scope.roadData);
+    	//console.log($scope.roadData);
     	$scope.roadConditions = [$scope.roadData[3], $scope.roadData[7], $scope.roadData[11]];
     	//Rename pass names to ski resort names for uniformity of data
     	$scope.roadConditions[0].MountainPassName = "Crystal Mountain";
@@ -271,14 +271,19 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 	//Adds the favorite ski resort of a user based on their selection in the Snowcast page
 	service.storeFavResort = function(resort) {
-		service.favResort.$add({
+		/*service.favResort.$add({
 			favResort: resort
 		}).then(function() {
 			$scope.favResort = resort;
 			console.log('Favorite Resort Saved: ' + resort);
 		})
-	}
+	*/
 
+		service.users[authData.uid] = { //set up new information in our users object
+			favResort: resort,
+		}
+		service.users.$save(); //save to firebase
+	}
 
 		return service;
 });
