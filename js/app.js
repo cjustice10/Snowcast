@@ -72,6 +72,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 .controller('LoginCtrl', ['$scope', '$http', 'firebaseService', function($scope, $http, firebaseService  ) {
 
+		$scope.loggedIn = false;
 
 		$scope.signUp = function() {
 			var firstName = $scope.newUser.firstName;
@@ -79,20 +80,25 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 			var email = $scope.newUser.email;
 			var password = $scope.newUser.password;
 			firebaseService.signUp(firstName, lastName, email, password);
+			$scope.loggedIn = firebaseService.loggedIn;
+
+
 		};
+
 
 		// LogIn function
 		$scope.signIn = function() {
 			var email = $scope.newUser.email;
 			var password = $scope.newUser.password;
 			firebaseService.returningAccount(password, email);
+			$scope.loggedIn = firebaseService.loggedIn;
 
 
 		};
 		// LogOut function
 		$scope.logOut = function() {
 			firebaseService.logOut();
-
+			$scope.loggedIn = firebaseService.loggedIn;
 		};
 
 	}])
@@ -111,6 +117,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	var resortDescRef = reviewsRef.child("resortDesc");
 	//user reference firebase
 	var usersRef = ref.child('users');
+	var loggedIn;
 
 	//creates new user
 	service.users = $firebaseObject(usersRef);
@@ -162,18 +169,6 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 	service.signIn = function(password, email) {
 		console.log('log in');
-		console.log(password);
-		/*ref.authWithPassword({
-		 email: $scope.newUser.email,
-		 password: $scope.newUser.password
-		 }, function(error, authData) {
-		 if (error) {
-		 console.log("Login Failed!", error);
-		 } else {
-		 console.log("Authenticated successfully with payload:", authData);
-
-		 }
-		 });*/
 		return Auth.$authWithPassword({
 			email: email,
 			password: password
@@ -189,7 +184,6 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 				console.log("Login Failed!", error);
 			} else {
 				console.log("Authenticated successfully with payload:", authData);
-
 			}
 		});
 	};
@@ -203,20 +197,23 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	Auth.$onAuth(function(authData) {
 		if(authData) {
 			console.log("login sucessful");
+			service.loggedIn = true;
 			service.userId = authData.uid;
 		}
 		else {
+			service.loggedIn = false;
 			service.userId = undefined;
 			console.log("not logged in")
 		}
 	});
 
-	// Test if already logged in (first time)
 	var authData = Auth.$getAuth();
 	if (authData) {
+		service.loggedIn = true;
 		service.userId = authData.uid;
+	}else{
+		service.loggedIn = false;
 	}
-
 	return service;
 
 });
