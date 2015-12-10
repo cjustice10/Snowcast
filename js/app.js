@@ -44,7 +44,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	$scope.skiResortNames = ['Crystal Mountain', 'Mt Baker', 'Stevens Pass'];
 
 	//When a supported resort is selected, save the user's resort preference to firebase 
-	$scope.favResortName;
+	$scope.favResortName = 'Crystal Mountain';
 	var updateFavResort = function(favResortName) {
 		firebaseService.storeFavResort(favResortName);
 	}
@@ -291,18 +291,20 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 	//Adds the favorite ski resort of a user based on their selection in the Snowcast page
 	service.storeFavResort = function(resort) {
-		/*service.favResort.$add({
+		/*service.userId.favResort.$add({
+		or
+		*/service.users[authData.uid].favResort.$add({
 			favResort: resort
 		}).then(function() {
 			$scope.favResort = resort;
 			console.log('Favorite Resort Saved: ' + resort);
 		})
-	*/
+	
 
-		service.users[authData.uid] = { //set up new information in our users object
+		/*service.users[authData.uid] = { //set up new information in our users object
 			favResort: resort,
 		}
-		service.users.$save(); //save to firebase
+		service.users.$save(); //save to firebase*/
 	}
 
 		return service;
