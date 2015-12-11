@@ -22,13 +22,12 @@
 
 				<div class="searchbar">
 					<!-- Need to mess with search -->
-					<!-- <input name="search" id="searchResort" placeholder="Search for Resort" ng-model="query" ng-change="searchCoffee()" ng-model-options="{debounce:1000}"></input> -->
+					<input name="search" id="searchResort" placeholder="Search" ng-model="query" ng-model-options="{debounce:1000}"></input>
 
 					<!-- <select name="skiResortName" id="skiResortName" class="form-control" ng-model="searchResort" ng-options="item for item in skiResortNames" ng-change='updateFavResort(favResortName);' required></select> -->
 				</div>
 
 				<div class="reviews">
-
 
 						<table class="table">
 						        <tr>
@@ -36,12 +35,17 @@
 						            <th>Rating</th>
 						            <th>Resort Description</th>
 						        </tr>
-						        <tr ng-repeat="review in userReviews">
+						        <tr ng-repeat="review in userReviews | orderBy: '-time' | filter:query">
 						            <td>{{review.resortName}}</td>
 						            <td>{{review.rating}}</td>
-						            <td>{{review.resortDesc}}</td>
+						            <td>
+						            	{{review.time | date:'medium'}} 
+						            	<p>
+						            		{{review.resortDesc}}
+						            	</p>
+						            </td>
 						        </tr>
-						    </table>
+						</table>
 					
 				</div>
 				

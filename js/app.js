@@ -161,7 +161,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
  //    };
 
 	$scope.userReviews = firebaseService.resortName;
-	console.log($scope.userReviews);
+	$scope.userList = firebaseService.users;
+	console.log($scope.userList);
 
 	$scope.searchResort;
 
