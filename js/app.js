@@ -1,4 +1,5 @@
 'use strict';
+var loggedIn = false;
 
 angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'firebase'])
 .config(function($stateProvider){
@@ -176,7 +177,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
     }
 })
 
-.controller('LoginCtrl', ['$scope', '$http', 'firebaseService', function($scope, $http, firebaseService  ) {
+.controller('LoginCtrl', ['$scope', '$http', 'firebaseService', '$firebaseArray', '$firebaseObject', function($scope, $http, firebaseService, $firebaseArray, $firebaseObject) {
 
 		$scope.loggedIn = false;
 
@@ -186,9 +187,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 			var email = $scope.newUser.email;
 			var password = $scope.newUser.password;
 			firebaseService.signUp(firstName, lastName, email, password);
-			$scope.loggedIn = firebaseService.loggedIn;
-
-
+			$scope.userID = firebaseService.userId;
 		};
 
 
@@ -196,15 +195,18 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 		$scope.signIn = function() {
 			var email = $scope.newUser.email;
 			var password = $scope.newUser.password;
+
 			firebaseService.returningAccount(password, email);
-			$scope.loggedIn = firebaseService.loggedIn;
+			$scope.userID = firebaseService.userId;
 
 
 		};
+
+
 		// LogOut function
 		$scope.logOut = function() {
 			firebaseService.logOut();
-			$scope.loggedIn = firebaseService.loggedIn;
+			$scope.userID = firebaseService.userId;
 		};
 
 	}])
@@ -223,7 +225,6 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 	//user reference firebase
 	var usersRef = ref.child('users');
-	var loggedIn;
 
 	//creates new user
 	service.users = $firebaseObject(usersRef);
@@ -298,30 +299,26 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 	// LogOut function
 	service.logOut = function() {
+
 		Auth.$unauth();
 	};
 
+
+
 	// any time auth status updates, set the userId so we know
 	Auth.$onAuth(function(authData) {
+
 		if(authData) {
-			console.log("login sucessful");
-			service.loggedIn = true;
+			console.log("login sucessful", loggedIn);
 			service.userId = authData.uid;
+
 		}
 		else {
-			service.loggedIn = false;
 			service.userId = undefined;
-			console.log("not logged in")
+			console.log("not logged in", loggedIn)
 		}
 	});
 
-	var authData = Auth.$getAuth();
-	if (authData) {
-		service.loggedIn = true;
-		service.userId = authData.uid;
-	}else{
-		service.loggedIn = false;
-	}
 
 	//Adds the favorite ski resort of a user based on their selection in the Snowcast page
 	service.storeFavResort = function(resort) {
