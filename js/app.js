@@ -344,5 +344,3 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 		return service;
 });
-
-
