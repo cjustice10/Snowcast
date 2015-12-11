@@ -44,7 +44,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	//List of names of supported ski resorts for dropdown select element id="skiResortName"
 	$scope.skiResortNames = ['Crystal Mountain', 'Mt Baker', 'Stevens Pass'];
 
-	//When a supported resort is selected, save the user's resort preference to firebase 
+	//When a supported resort is selected, save the user's resort preference to firebase
 	$scope.favResortName = 'Crystal Mountain';
 	var updateFavResort = function(favResortName) {
 		firebaseService.storeFavResort(favResortName);
@@ -118,7 +118,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
       'dataType': 'jsonp',
       'success': function(response) {
         $scope.json = response.query.results.json.items;
-      }     
+      }
     }).then(function() {
     	$scope.$apply(function() {
     		$scope.resortArray = $scope.json;
