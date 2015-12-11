@@ -6,19 +6,19 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" class="form-control" ng-model="newUser.email"></input>
             <!-- Show an error message if the email is not valid -->
-            <p class="help-block" ng-if="login.email.$error.email">Not an email!</p>
+            <p class="help-block" ng-if="login.email.$error.email && !userID">Not an email!</p>
 
         <!-- Password -->
             <label for="password">Password:</label>
             <input id="password" name="password" type="password" class="form-control" ng-model="newUser.password" required></input>
-            <p ng-show="login.password.$invalid && login.password.$touched" class="help-block" id="noPasswordError">Please enter a password</p>
+            <p ng-show="login.password.$invalid && login.password.$touched && !userID" class="help-block" id="noPasswordError">Please enter a password</p>
         </div>
 
         <!-- Submit buttons: should only be active if certain inputs are valid -->
         <div>
-            <button type="submit" class="btn btn-primary" ng-click="signIn()" ng-disabled="login.email.$invalid || login.password.$invalid" >Sign-in</button>
-            <button type="submit" class="btn btn-primary" ng-click="logOut()">logout</button>
-            <p class="help-block" ng-show="signup.loggedIn" class="help-block" id="already logged in">You are already logged in!</p>
+            <button type="submit" class="btn btn-primary" ng-click="signIn()"  ng-disabled='userID' >Sign-in</button>
+            <button type="submit" class="btn btn-primary" ng-click="logOut()" ng-disabled='!userID'>logout</button>
+            <p class="help-block" ng-show="userID" id="already logged in">You are already logged in!</p>
         </div>
     </form>
 </div>
