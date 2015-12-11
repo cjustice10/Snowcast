@@ -104,6 +104,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	var snowfallUrl = "http://feeds.snocountry.net/conditions.php?apiKey=SnoCountry.example&states=wa&resortType=Alpine&output=json";
 	var yql_url = 'https://query.yahooapis.com/v1/public/yql';
 	$scope.resortArray = [];
+	$scope.sorter = '';
+	$scope.sorter2 = '';
 
     $.ajax({
       'url': yql_url,
@@ -121,6 +123,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
     		$scope.resortArray = $scope.json;
     	})
     	console.log($scope.resortArray);
+    	console.log(parseInt($scope.resortArray[0].avgBaseDepthMax));
     });
 
 }])
