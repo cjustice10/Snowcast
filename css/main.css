@@ -38,10 +38,11 @@ footer {
 
 #CrystalMtnPic{
 	margin-top: 50px;
+
 }
 
 #crystalPic {
-	width: 90%;
+	width: 100%;
 }
 
 /*For snowviews*/
@@ -78,7 +79,7 @@ footer {
 
 	.signupForm, .loginForm {
 	width: 44%;
-}
+	}
 
 }
 
