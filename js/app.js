@@ -36,7 +36,13 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 })
 
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
+	$scope.stevensShow = false;
+	$scope.crystalShow = true;
+	$scope.bakerShow = false;
 
+	$scope.snowfall[0].maxOpenDownHillTrails
+	$scope.snowfall[1].maxOpenDownHillTrails
+	$scope.snowfall[2].maxOpenDownHillTrails
 }])
 
 .controller('SnowcastCtrl', ['$scope', '$http', function($scope, $http) {
@@ -73,7 +79,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	    	$scope.snowfall[1].resortName = "Mt Baker";
 	    	$scope.snowfall[2].resortName = "Stevens Pass";
 	    })
-	  },
+	  };
 	});
 
 	//Variables to store and access data for road conditions from WSDOT
@@ -345,3 +351,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 });
 
 
+.factory('firebaseService', function($firebaseArray, $firebaseObject, $firebaseAuth) {
+	var service = {};
+	
+	return service;
+});
