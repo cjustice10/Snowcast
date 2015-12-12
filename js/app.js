@@ -173,8 +173,6 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	$scope.userList = firebaseService.users;
 	console.log($scope.userList);
 
-	$scope.searchResort;
-
 }])
 
 //Prevents getting the not found page upon clicking submit button
@@ -351,5 +349,3 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 		return service;
 });
-
-
