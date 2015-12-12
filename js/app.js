@@ -1,5 +1,5 @@
 'use strict';
-var loggedIn = false;
+
 
 angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'firebase'])
 .config(function($stateProvider){
@@ -79,13 +79,14 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	  }
 	});
 
+
 }])
 
 .controller('SnowcastCtrl', ['$scope', '$http', function($scope, $http) {
 	//List of names of supported ski resorts for dropdown select element id="skiResortName"
 	$scope.skiResortNames = ['Crystal Mountain', 'Mt Baker', 'Stevens Pass'];
 
-	//When a supported resort is selected, save the user's resort preference to firebase 
+	//When a supported resort is selected, save the user's resort preference to firebase
 	$scope.favResortName = 'Crystal Mountain';
 	var updateFavResort = function(favResortName) {
 		firebaseService.storeFavResort(favResortName);
@@ -159,7 +160,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
       'dataType': 'jsonp',
       'success': function(response) {
         $scope.json = response.query.results.json.items;
-      }     
+      }
     }).then(function() {
     	$scope.$apply(function() {
     		$scope.resortArray = $scope.json;
@@ -178,6 +179,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	$scope.skiResortNames = ['Crystal Mountain', 'Mt. Baker', 'Stevens Pass'];
 	$scope.skiResortName = '';
 
+
+
 	//Submit the form
 	//Calls storeReview function in .factory and passes in stored review info
 	$scope.submitFunction = function() {
@@ -187,8 +190,10 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 		var storedResortName = $scope.skiResortName;
 		var storedResortDesc = $scope.skiResortDesc;
 		//Get name of user, store it
+
 		firebaseService.storeReview(storedRating, storedResortName, storedResortDesc);
 		$scope.reset();
+
 
 	}
 
@@ -198,12 +203,6 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
         $scope.ratingDrop = '';
         $scope.skiResortDesc = '';
     };
-
-    //Reloads the page / resets the form
-	// $scope.reset = function() {
-
- //        location.reload();
- //    };
 
 	$scope.userReviews = firebaseService.resortName;
 	$scope.userList = firebaseService.users;
@@ -222,7 +221,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 .controller('LoginCtrl', ['$scope', '$http', 'firebaseService', '$firebaseArray', '$firebaseObject', function($scope, $http, firebaseService, $firebaseArray, $firebaseObject) {
 
-		$scope.loggedIn = false;
+
 
 		$scope.signUp = function() {
 			var firstName = $scope.newUser.firstName;
@@ -231,6 +230,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 			var password = $scope.newUser.password;
 			firebaseService.signUp(firstName, lastName, email, password);
 			$scope.userID = firebaseService.userId;
+
 		};
 
 
@@ -335,6 +335,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 			if (error) {
 				console.log("Login Failed!", error);
 			} else {
+				service.userId = authData.uid;
 				console.log("Authenticated successfully with payload:", authData);
 			}
 		});
@@ -342,8 +343,8 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 
 	// LogOut function
 	service.logOut = function() {
-
 		Auth.$unauth();
+		service.userId = undefined;
 	};
 
 
@@ -352,13 +353,13 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	Auth.$onAuth(function(authData) {
 
 		if(authData) {
-			console.log("login sucessful", loggedIn);
+			console.log("login sucessful");
 			service.userId = authData.uid;
 
 		}
 		else {
 			service.userId = undefined;
-			console.log("not logged in", loggedIn)
+			console.log("not logged in")
 		}
 	});
 
