@@ -37,13 +37,48 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 })
 
 .controller('HomeCtrl', ['$scope', '$http', function($scope, $http) {
-	$scope.stevensShow = false;
-	$scope.crystalShow = true;
-	$scope.bakerShow = false;
+	$scope.runsOpen = [];
+	$scope.mostRunsOpen = [];
 
-	$scope.snowfall[0].maxOpenDownHillTrails
-	$scope.snowfall[1].maxOpenDownHillTrails
-	$scope.snowfall[2].maxOpenDownHillTrails
+	//Variables to access forecast and current weather data using Yahoo proxy for JSONP request
+	$scope.snowfall;
+	$scope.snowfallUrl = "http://feeds.snocountry.net/conditions.php?apiKey=SnoCountry.example&ids=206002,206003,206004&output=json";
+	$scope.yql_url = 'https://query.yahooapis.com/v1/public/yql';
+
+	//jQuery AJAX get request using Yahoo Proxy for forecast and current weather data to highlight the resort with the most number of runs open
+	$.ajax({
+	  'url': $scope.yql_url,
+	  'data': {
+	    'q': 'SELECT * FROM json WHERE url="'+$scope.snowfallUrl+'"',
+	    'format': 'json',
+	    'jsonCompat': 'new',
+	  },
+	  'dataType': 'jsonp',
+	  'success': function(response) {
+	    $scope.$apply(function() {
+	    	$scope.snowfall=response.query.results.json.items;
+	    	console.log($scope.snowfall);
+	    	// Test to see if Mt.Baker gets displayed when it has the highest number of runs open
+	    	// $scope.snowfall[1].maxOpenDownHillTrails = 1000;
+	    	for($scope.i in $scope.snowfall) {
+	    		$scope.runsOpen[$scope.i] = $scope.snowfall[$scope.i].maxOpenDownHillTrails;
+	    		$scope.mostRunsOpen[$scope.i] = false;
+	    	}
+			$scope.max = $scope.runsOpen[0];
+			$scope.maxIndex = 0;
+
+			for ($scope.i in $scope.runsOpen) {
+			    if ($scope.runsOpen[$scope.i] > $scope.max) {
+			        $scope.maxIndex = $scope.i;
+			        $scope.max = $scope.runsOpen[$scope.i];
+			    }
+			}
+
+			$scope.mostRunsOpen[$scope.maxIndex] = true;
+	    })
+	  }
+	});
+
 }])
 
 .controller('SnowcastCtrl', ['$scope', '$http', function($scope, $http) {
@@ -80,7 +115,7 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 	    	$scope.snowfall[1].resortName = "Mt Baker";
 	    	$scope.snowfall[2].resortName = "Stevens Pass";
 	    })
-	  };
+	  }
 	});
 
 	//Variables to store and access data for road conditions from WSDOT
@@ -327,33 +362,6 @@ angular.module('SnowcastApp', ['ngSanitize', 'ui.router', 'ui.bootstrap', 'fireb
 		}
 	});
 
-
-	//Adds the favorite ski resort of a user based on their selection in the Snowcast page
-	service.storeFavResort = function(resort) {
-		/*service.userId.favResort.$add({
-		or
-		*/service.users[authData.uid].favResort.$add({
-			favResort: resort
-		}).then(function() {
-			$scope.favResort = resort;
-			console.log('Favorite Resort Saved: ' + resort);
-		})
-	
-
-		/*service.users[authData.uid] = { //set up new information in our users object
-			favResort: resort,
-		}
-		service.users.$save(); //save to firebase*/
-	}
-
 		return service;
-
-});
-
-
-.factory('firebaseService', function($firebaseArray, $firebaseObject, $firebaseAuth) {
-	var service = {};
-	
-	return service;
 
 });

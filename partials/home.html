@@ -6,14 +6,16 @@
             <h1 class="text-center">What is Snowcast?</h1>
                 <p class="text-center">Snowcast is a website the aggregates weather data
                     to provide snow sports enthusiasts with a hub of the most important and up-to-date
-                    information to help them have the most fun possible. You can review your favorite ski resort, look at snow reports, checkout the snow forecast page and create an account!</p>
+                    information to help them have the most fun possible. You can review your favorite ski resort, 
+                    look at snow reports, checkout the snow forecast page and create an account! The home page shows
+                    you which resort has the most number of runs open today!</p>
             </div>
         </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <div id="crystalHighlight" class="highlight" ng-show="crystalShow">
+            <div id="crystalHighlight" class="highlight" ng-show="mostRunsOpen[0]">
                 <div class="col-xs-12 col-md-6">
                     <h2 class="text-center">Highlighted Ski Resort: Crystal Mountain</h2>
                     <p >The highlighted ski resort for this week is Crystal Mountain. Crystal Mountain is a mountain and alpine
@@ -34,7 +36,7 @@
                 </div>
             </div> <!-- End Highlight -->
 
-            <div id="stevensHighlight" class="highlight" ng-show="stevensShow">
+            <div id="stevensHighlight" class="highlight" ng-show="mostRunsOpen[2]">
                 <div class="col-xs-12 col-md-6">
                     <h2 class="text-center">Highlighted Ski Resort: Stevens Pass</h2>
                     <p >Located on the crest of the Cascade Range, we receive abundant and frequent snowfall. Cool air often 
@@ -54,7 +56,7 @@
                 </div>
             </div> <!-- End Highlight -->
 
-            <div id="bakerHighlight" class="highlight" ng-show="bakerShow">
+            <div id="bakerHighlight" class="highlight" ng-show="mostRunsOpen[1]">
                 <div class="col-xs-12 col-md-6">
                     <h2 class="text-center">Highlighted Ski Resort: Mt. Baker</h2>
                     <p >Mt. Baker Ski Area, in Northern Washington, is a powderhound mecca. The ski area averages the most annual snowfall, 
